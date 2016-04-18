@@ -1,0 +1,17 @@
+app:
+  build: .
+  volumes:
+    - ./:/src:rw
+  ports:
+    - 8000:8000
+  command: >
+    sh -c '
+      if test -d node_modules; 
+      then 
+        echo node_modules_exists; 
+      else 
+        cp -a /tmp/node_modules /src;
+      fi && 
+      npm install && 
+      npm start
+    '

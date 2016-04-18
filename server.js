@@ -2,11 +2,26 @@
 const hapi = require('hapi');
 const inert = require('inert');
 const path = require('path');
+
+// dev
 const webpack = require('webpack');
 const hapiWebpackPlugin = require('hapi-webpack-plugin');
+const chokidar = require('chokidar');
+
+const watcher = chokidar.watch('./server');
+
+watcher.on('ready', function() {
+  watcher.on('all', function() {
+    console.log("Clearing /server/ module cache from server");
+    Object.keys(require.cache).forEach(function(id) {
+      if (/[\/\\]server[\/\\]/.test(id)) delete require.cache[id];
+    });
+  });
+});
+
 
 // constants
-const webRoot = path.join(__dirname, 'public');
+const webRoot = path.join(__dirname, 'client');
 const serverHost = '0.0.0.0';
 const serverPort = 8000;
 const hapiPackages = [];

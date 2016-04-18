@@ -1,8 +1,15 @@
-# hapi-webpack-react-hmr-template
-A basic, hapi.js development server that incorporates webpack, babel, react, and hot module reload.
-
 To get started
+
 ```
-npm install
-node server.js
+# only if on os x
+docker-machine start
+
+docker-compose build
+docker-compose up
+```
+
+If you're editing webpack config, you'll need to restart the server to see your changes. To do that, run
+
+```
+docker-compose restart app
 ```

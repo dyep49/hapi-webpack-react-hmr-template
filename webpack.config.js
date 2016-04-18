@@ -1,11 +1,11 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval',
   entry: [
-    './public/app/index',
-    'webpack-hot-middleware/client?path=http://0.0.0.0:8000/__webpack_hmr'
+    './client/app/index',
+    'webpack-hot-middleware/client?reload=true'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -19,11 +19,16 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel-loader',
-      include: path.join(__dirname, 'public')
+      include: path.join(__dirname, 'client')
     }]
   },
   assets: {
-    publicPath: '/static/'
+    publicPath: '/static/',
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    },
+    noInfo: true
   }
 };
 
